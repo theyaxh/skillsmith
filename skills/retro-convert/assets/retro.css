@@ -1,0 +1,408 @@
+/* retro.css: a late-90s desktop skin. Grey bevelled windows, blue gradient title bars,
+   pixel type, crisp pixel icons. Plain CSS, no framework, no build step.
+
+   Use it:
+     1. Load this file (it pulls Pixelify Sans and VT323 from Google Fonts).
+     2. Put class="retro" on <html> or <body> (on <body> so portalled modals and menus inherit it).
+     3. Use the r-* classes below. Nothing here touches elements outside .retro.
+
+   Every class is prefixed r-, every token --retro-*, so it can sit next to Tailwind,
+   Bootstrap, shadcn or any app CSS without collisions. Selectors are scoped with
+   :where(.retro), so each r-* class weighs the same as one utility class: load this file
+   after your reset/base CSS and before your utilities, so layout utilities like max-w-md win.
+   Tailwind v3: @tailwind base; then this file; then @tailwind utilities.
+   Tailwind v4: @import "tailwindcss"; @import "./retro.css" layer(components);
+
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=VT323&display=swap");
+
+/* ---------- tokens ---------- */
+:root {
+  --retro-desktop: #2672dc;
+  --retro-face: #c0c0c0;
+  --retro-face-light: #dfdfdf;
+  --retro-hilite: #ffffff;
+  --retro-shadow: #808080;
+  --retro-dark: #0a0a0a;
+  --retro-ink: #000000;
+  --retro-muted: #404040;
+  --retro-well: #ffffff;
+  --retro-select: #0a246a;
+  --retro-select-ink: #ffffff;
+  --retro-title-1: #0058ee;
+  --retro-title-2: #3a93ff;
+  --retro-title-3: #127dff;
+  --retro-title-4: #0050de;
+  --retro-start-1: #3c9a3c;
+  --retro-start-2: #59b859;
+  --retro-task-1: #245edb;
+  --retro-task-2: #3f8cf3;
+  --retro-close: #e04343;
+  --retro-good: #0b7d1b;
+  --retro-bad: #b3261e;
+  --retro-meter: #000080;
+  --retro-balloon: #ffffe1;
+  --retro-link: #0000ee;
+  --retro-font-ui: "Pixelify Sans", Tahoma, system-ui, sans-serif;
+  --retro-font-num: "VT323", "Courier New", monospace;
+  --retro-font-read: Tahoma, Verdana, system-ui, sans-serif;
+
+  /* the three bevels. Order matters: outer pair first, inner pair second. */
+  --retro-raised: inset -1px -1px var(--retro-dark), inset 1px 1px var(--retro-hilite), inset -2px -2px var(--retro-shadow), inset 2px 2px var(--retro-face-light);
+  --retro-sunken: inset -1px -1px var(--retro-hilite), inset 1px 1px var(--retro-shadow), inset -2px -2px var(--retro-face-light), inset 2px 2px var(--retro-dark);
+  --retro-pressed: inset -1px -1px var(--retro-hilite), inset 1px 1px var(--retro-dark), inset -2px -2px var(--retro-face-light), inset 2px 2px var(--retro-shadow);
+  --retro-thin-sunken: inset 1px 1px var(--retro-shadow), inset -1px -1px var(--retro-hilite);
+  --retro-etched: inset -1px -1px var(--retro-hilite), inset -2px 1px var(--retro-shadow), inset 1px -2px var(--retro-shadow), inset 2px 2px var(--retro-hilite);
+}
+
+/* ---------- root ---------- */
+:where(.retro) {
+  color: var(--retro-ink);
+  font: 16px/1.35 var(--retro-font-ui);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  /* Pixelify Sans joins "fi" into a glyph that reads as "A" ("files" -> "Ales"). Keep ligatures off. */
+  font-feature-settings: "liga" 0, "clig" 0, "dlig" 0;
+  font-variant-ligatures: none;
+  color-scheme: light;
+}
+body.retro, :where(.retro) body { background-color: var(--retro-desktop); margin: 0; }
+:where(.retro) *, :where(.retro) *::before, :where(.retro) *::after { box-sizing: border-box; }
+:where(.retro) [hidden] { display: none !important; }
+/* optional: long reading text in a plain sans while chrome stays pixel */
+:where(.retro) .r-read, :where(.retro.r-readable) .r-body p, :where(.retro.r-readable) .r-body li { font-family: var(--retro-font-read); font-size: 13px; line-height: 1.45; }
+
+/* ---------- bevel utilities ---------- */
+:where(.retro) .r-raised { box-shadow: var(--retro-raised); background: var(--retro-face); }
+:where(.retro) .r-sunken { box-shadow: var(--retro-sunken); }
+:where(.retro) .r-well { box-shadow: var(--retro-sunken); background: var(--retro-well); padding: 2px; }
+:where(.retro) .r-hr { border: 0; border-top: 1px solid var(--retro-shadow); border-bottom: 1px solid var(--retro-hilite); margin: 4px 0; width: auto; height: 0; }
+
+/* ---------- desktop layout ---------- */
+:where(.retro) .r-desktop {
+  max-width: 900px; margin: 0 auto;
+  padding: 32px max(16px, env(safe-area-inset-right, 0px)) 72px max(16px, env(safe-area-inset-left, 0px));
+  display: flex; flex-direction: column; gap: 24px;
+}
+
+/* ---------- window ---------- */
+:where(.retro) .r-window { background: var(--retro-face); box-shadow: var(--retro-raised); padding: 3px; display: flex; flex-direction: column; position: relative; min-width: 0; }
+:where(.retro) .r-title {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 3px 3px 3px 6px; color: #fff; min-height: 26px;
+  background: linear-gradient(180deg, var(--retro-title-1) 0%, var(--retro-title-2) 10%, var(--retro-title-3) 50%, var(--retro-title-4) 100%);
+  border-radius: 6px 6px 0 0;
+}
+:where(.retro) .r-title.r-inactive { background: linear-gradient(180deg, #7a96df 0%, #a6b9ec 10%, #8aa3e3 50%, #7590d8 100%); color: #e6ecfa; }
+:where(.retro) .r-title-text { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 15px; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; text-shadow: 1px 1px var(--retro-select); margin: 0; }
+:where(.retro) .r-title-buttons { display: flex; gap: 2px; flex: none; }
+:where(.retro) .r-tb {
+  width: 22px; height: 20px; display: grid; place-items: center; padding: 0; border: 0;
+  background: var(--retro-face); color: var(--retro-ink); font: 700 13px/1 var(--retro-font-ui); box-shadow: var(--retro-raised);
+}
+:where(.retro) .r-tb.r-close { background: var(--retro-close); color: #fff; }
+:where(.retro) button.r-tb { cursor: pointer; }
+:where(.retro) button.r-tb:active { box-shadow: var(--retro-pressed); }
+:where(.retro) .r-body { padding: 12px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+:where(.retro) .r-resize-grip {
+  position: absolute; right: 3px; bottom: 3px; width: 14px; height: 14px; cursor: nwse-resize;
+  background: linear-gradient(135deg, transparent 0 45%, var(--retro-hilite) 45% 52%, var(--retro-shadow) 52% 62%, transparent 62% 70%, var(--retro-hilite) 70% 77%, var(--retro-shadow) 77% 87%, transparent 87%);
+}
+
+/* ---------- menu bar and menus ---------- */
+:where(.retro) .r-menubar { display: flex; gap: 2px; padding: 2px; border-bottom: 1px solid var(--retro-shadow); box-shadow: 0 1px var(--retro-hilite); }
+:where(.retro) .r-window > .r-menubar { margin: 0; }
+:where(.retro) .r-menu-wrap { position: relative; }
+:where(.retro) .r-menu-title { font: 15px var(--retro-font-ui); background: none; border: 0; padding: 3px 10px; cursor: pointer; color: var(--retro-ink); }
+:where(.retro) .r-menu-title:hover, :where(.retro) .r-menu-title[aria-expanded="true"], :where(.retro) .r-menu-title.r-active { background: var(--retro-select); color: var(--retro-select-ink); }
+:where(.retro) .r-menu { position: absolute; top: calc(100% + 2px); left: 0; z-index: 60; background: var(--retro-face); box-shadow: var(--retro-raised); padding: 3px; min-width: 200px; display: flex; flex-direction: column; }
+:where(.retro) .r-menu.r-right { left: auto; right: 0; }
+:where(.retro) .r-menu.r-up { top: auto; bottom: calc(100% + 2px); }
+:where(.retro) .r-menu > button, :where(.retro) .r-menu > a, :where(.retro) .r-menu [role="menuitem"] {
+  font: 15px var(--retro-font-ui); text-align: left; background: none; border: 0; padding: 4px 20px 4px 22px; cursor: pointer;
+  display: flex; gap: 6px; align-items: center; color: var(--retro-ink); text-decoration: none; white-space: nowrap;
+}
+:where(.retro) .r-menu > button:hover:not(:disabled), :where(.retro) .r-menu > a:hover, :where(.retro) .r-menu [role="menuitem"]:hover:not([aria-disabled="true"]):not(:disabled),
+:where(.retro) .r-menu [role="menuitem"]:focus-visible { background: var(--retro-select); color: var(--retro-select-ink); outline: 0; }
+:where(.retro) .r-menu > button:disabled, :where(.retro) .r-menu [aria-disabled="true"] { color: var(--retro-shadow); text-shadow: 1px 1px var(--retro-hilite); cursor: default; }
+:where(.retro) .r-menu hr { border: 0; border-top: 1px solid var(--retro-shadow); border-bottom: 1px solid var(--retro-hilite); margin: 3px 2px; }
+:where(.retro) .r-menu .r-shortcut { margin-left: auto; padding-left: 24px; }
+:where(.retro) .r-caret { font-size: 12px; }
+
+/* ---------- buttons ---------- */
+:where(.retro) .r-btn {
+  font: 500 15px var(--retro-font-ui); color: var(--retro-ink); background: var(--retro-face); box-shadow: var(--retro-raised);
+  border: 0; border-radius: 0; padding: 6px 14px; min-height: 30px; min-width: 75px; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+}
+:where(.retro) .r-btn:active:not(:disabled), :where(.retro) .r-btn.r-pressed, :where(.retro) .r-btn[aria-pressed="true"], :where(.retro) .r-btn[aria-expanded="true"] {
+  box-shadow: var(--retro-pressed); padding: 7px 13px 5px 15px;
+}
+:where(.retro) .r-btn.r-pressed, :where(.retro) .r-btn[aria-pressed="true"] { background: var(--retro-face-light); }
+:where(.retro) .r-btn.r-default { font-weight: 700; }
+:where(.retro) .r-btn.r-square { width: 32px; min-width: 0; padding: 0; }
+:where(.retro) .r-btn:disabled, :where(.retro) .r-btn[aria-disabled="true"] { color: var(--retro-shadow); text-shadow: 1px 1px var(--retro-hilite); cursor: default; }
+:where(.retro) .r-btn:focus-visible, :where(.retro) .r-menu-title:focus-visible, :where(.retro) .r-tb:focus-visible, :where(.retro) .r-task:focus-visible, :where(.retro) .r-start:focus-visible,
+:where(.retro) .r-tab:focus-visible, :where(.retro) .r-check input:focus-visible + span, :where(.retro) .r-radio input:focus-visible + span {
+  outline: 1px dotted var(--retro-ink); outline-offset: -4px;
+}
+:where(.retro) .r-check input:focus-visible + span, :where(.retro) .r-radio input:focus-visible + span { outline-offset: 1px; }
+:where(.retro) .r-toolbar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+:where(.retro) .r-spacer { flex: 1; }
+
+/* ---------- text fields, select, textarea ---------- */
+:where(.retro) .r-input, :where(.retro) .r-select, :where(.retro) .r-textarea {
+  font: 15px var(--retro-font-ui); color: var(--retro-ink); background: var(--retro-well);
+  border: 0; border-radius: 0; box-shadow: var(--retro-sunken); padding: 5px 6px; min-height: 30px; width: 100%; min-width: 0;
+}
+:where(.retro) .r-textarea { min-height: 72px; resize: vertical; line-height: 1.35; }
+:where(.retro) .r-input:focus, :where(.retro) .r-select:focus, :where(.retro) .r-textarea:focus { outline: 1px dotted var(--retro-ink); outline-offset: -4px; }
+:where(.retro) .r-input:disabled, :where(.retro) .r-select:disabled, :where(.retro) .r-textarea:disabled { background: var(--retro-face); color: var(--retro-shadow); }
+:where(.retro) .r-input::placeholder, :where(.retro) .r-textarea::placeholder { color: var(--retro-shadow); opacity: 1; }
+:where(.retro) .r-select {
+  appearance: none; -webkit-appearance: none; padding-right: 26px; cursor: pointer;
+  /* a raised arrow button drawn inside the sunken well: arrow, then the bevel lines, then the face */
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H6v1H5v1H4v1H3V3H2V2H1V1H0z'/%3E%3C/svg%3E") no-repeat right 8px center,
+    linear-gradient(var(--retro-dark), var(--retro-dark)) no-repeat right 2px top 2px / 1px calc(100% - 4px),
+    linear-gradient(var(--retro-dark), var(--retro-dark)) no-repeat right 2px bottom 2px / 18px 1px,
+    linear-gradient(var(--retro-shadow), var(--retro-shadow)) no-repeat right 3px top 3px / 1px calc(100% - 6px),
+    linear-gradient(var(--retro-shadow), var(--retro-shadow)) no-repeat right 3px bottom 3px / 16px 1px,
+    linear-gradient(var(--retro-hilite), var(--retro-hilite)) no-repeat right 19px top 2px / 1px calc(100% - 4px),
+    linear-gradient(var(--retro-hilite), var(--retro-hilite)) no-repeat right 2px top 2px / 18px 1px,
+    linear-gradient(var(--retro-face), var(--retro-face)) no-repeat right 2px top 2px / 18px calc(100% - 4px),
+    var(--retro-well);
+}
+
+/* ---------- labels and fields ---------- */
+:where(.retro) .r-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+:where(.retro) .r-field-row { display: flex; align-items: center; gap: 8px; }
+:where(.retro) .r-label { font-size: 15px; color: var(--retro-ink); }
+:where(.retro) .r-hint { margin: 0; font-size: 14px; line-height: 1.35; color: var(--retro-muted); max-width: 56ch; }
+:where(.retro) .r-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 16px; }
+
+/* ---------- checkbox and radio ----------
+   Markup: <label class="r-check"><input type="checkbox"><span>Label</span></label> */
+:where(.retro) .r-check, :where(.retro) .r-radio { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; cursor: pointer; position: relative; }
+:where(.retro) .r-check input, :where(.retro) .r-radio input { position: absolute; opacity: 0; width: 13px; height: 13px; margin: 0; }
+:where(.retro) .r-check span::before, :where(.retro) .r-radio span::before { content: ""; display: inline-block; width: 13px; height: 13px; margin-right: 6px; vertical-align: -2px; background: var(--retro-well) no-repeat center; }
+:where(.retro) .r-check span::before { box-shadow: var(--retro-sunken); }
+:where(.retro) .r-check input:checked + span::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='7' shape-rendering='crispEdges'%3E%3Cpath d='M6 0h1v3H6v1H5v1H4v1H3v1H2V6H1V5H0V2h1v1h1v1h1V3h1V2h1V1h1z'/%3E%3C/svg%3E");
+}
+:where(.retro) .r-radio span::before {
+  width: 12px; height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' shape-rendering='crispEdges'%3E%3Cpath fill='%23808080' d='M4 0h4v1H4zM2 1h2v1H2zM8 1h2v1H8zM1 2h1v2H1zM0 4h1v4H0zM1 8h1v1H1z'/%3E%3Cpath fill='%230a0a0a' d='M4 1h4v1H4zM2 2h2v1H2zM8 2h2v1H8zM2 3h1v1H2zM1 4h1v4H1zM2 8h1v1H2z'/%3E%3Cpath fill='%23fff' d='M10 2h1v2h-1zM11 4h1v4h-1zM10 8h1v2h-1zM8 10h2v1H8zM4 11h4v1H4zM2 10h2v1H2z'/%3E%3Cpath fill='%23dfdfdf' d='M9 3h1v1H9zM10 4h1v4h-1zM9 8h1v1H9zM8 9h2v1H8zM4 10h4v1H4zM3 9h1v1H3z'/%3E%3Cpath fill='%23fff' d='M4 2h4v1H4zM3 3h6v1H3zM2 4h8v4H2zM3 8h6v1H3zM4 9h4v1H4z'/%3E%3C/svg%3E");
+  box-shadow: none; background-color: transparent;
+}
+:where(.retro) .r-radio input:checked + span::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' shape-rendering='crispEdges'%3E%3Cpath fill='%23808080' d='M4 0h4v1H4zM2 1h2v1H2zM8 1h2v1H8zM1 2h1v2H1zM0 4h1v4H0zM1 8h1v1H1z'/%3E%3Cpath fill='%230a0a0a' d='M4 1h4v1H4zM2 2h2v1H2zM8 2h2v1H8zM2 3h1v1H2zM1 4h1v4H1zM2 8h1v1H2z'/%3E%3Cpath fill='%23fff' d='M10 2h1v2h-1zM11 4h1v4h-1zM10 8h1v2h-1zM8 10h2v1H8zM4 11h4v1H4zM2 10h2v1H2z'/%3E%3Cpath fill='%23dfdfdf' d='M9 3h1v1H9zM10 4h1v4h-1zM9 8h1v1H9zM8 9h2v1H8zM4 10h4v1H4zM3 9h1v1H3z'/%3E%3Cpath fill='%23fff' d='M4 2h4v1H4zM3 3h6v1H3zM2 4h8v4H2zM3 8h6v1H3zM4 9h4v1H4z'/%3E%3Cpath d='M5 4h2v1H5zM4 5h4v2H4zM5 7h2v1H5z'/%3E%3C/svg%3E");
+}
+:where(.retro) .r-check input:disabled + span, :where(.retro) .r-radio input:disabled + span { color: var(--retro-shadow); text-shadow: 1px 1px var(--retro-hilite); }
+:where(.retro) .r-check input:disabled + span::before { background-color: var(--retro-face); }
+
+/* ---------- switch -> checkbox. There is no switch in this world: use .r-check. ---------- */
+
+/* ---------- slider ---------- */
+:where(.retro) input[type="range"].r-slider, :where(.retro) .r-slider { -webkit-appearance: none; appearance: none; background: transparent; height: 24px; min-width: 0; width: 100%; }
+:where(.retro) .r-slider::-webkit-slider-runnable-track { height: 4px; background: var(--retro-face); box-shadow: var(--retro-thin-sunken); }
+:where(.retro) .r-slider::-moz-range-track { height: 4px; background: var(--retro-face); box-shadow: var(--retro-thin-sunken); }
+:where(.retro) .r-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 22px; margin-top: -9px; background: var(--retro-face); border: 0; box-shadow: var(--retro-raised); }
+:where(.retro) .r-slider::-moz-range-thumb { width: 12px; height: 22px; background: var(--retro-face); border: 0; border-radius: 0; box-shadow: var(--retro-raised); }
+
+/* ---------- group box ----------
+   Markup: <fieldset class="r-group"><legend>Title</legend>...</fieldset> */
+:where(.retro) .r-group { border: 0; margin: 8px 0 0; padding: 12px; min-width: 0; box-shadow: var(--retro-etched); display: flex; flex-direction: column; gap: 10px; }
+:where(.retro) .r-group > legend { background: var(--retro-face); padding: 0 4px; margin-left: 4px; font-size: 15px; }
+
+/* ---------- tabs ----------
+   Markup: <div class="r-tabs" role="tablist"><button class="r-tab" role="tab" aria-selected="true">..</button>..</div>
+           <div class="r-tabpanel" role="tabpanel">..</div> */
+:where(.retro) .r-tabs { display: flex; gap: 0; padding-left: 2px; position: relative; z-index: 1; flex-wrap: wrap; }
+:where(.retro) .r-tab {
+  font: 15px var(--retro-font-ui); color: var(--retro-ink); background: var(--retro-face); border: 0; cursor: pointer;
+  padding: 3px 12px 3px; margin-top: 2px; position: relative;
+  box-shadow: inset 1px 1px var(--retro-hilite), inset -1px 0 var(--retro-dark), inset -2px 0 var(--retro-shadow), inset 2px 2px var(--retro-face-light);
+  border-radius: 3px 3px 0 0;
+}
+:where(.retro) .r-tab[aria-selected="true"], :where(.retro) .r-tab.r-active { margin: 0 -2px -1px; padding: 5px 14px 5px; z-index: 2; }
+:where(.retro) .r-tab[aria-selected="true"]::after, :where(.retro) .r-tab.r-active::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 0; height: 2px; background: var(--retro-face); }
+:where(.retro) .r-tabpanel { background: var(--retro-face); box-shadow: var(--retro-raised); padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+
+/* ---------- progress and meters ---------- */
+:where(.retro) .r-progress { width: 100%; max-width: 240px; height: 18px; padding: 2px; background: var(--retro-well); display: block; overflow: hidden; box-shadow: var(--retro-thin-sunken); }
+:where(.retro) .r-progress > i { display: block; height: 100%; width: 60%; background: repeating-linear-gradient(90deg, var(--retro-meter) 0 10px, transparent 10px 12px); animation: r-crawl 1.2s steps(6) infinite; }
+@keyframes r-crawl { from { transform: translateX(-100%); } to { transform: translateX(170%); } }
+/* determinate: set the width of <i> inline, e.g. style="width:42%" */
+:where(.retro) .r-progress.r-determinate > i { animation: none; }
+:where(.retro) .r-meter { display: flex; gap: 2px; padding: 3px; background: var(--retro-well); box-shadow: var(--retro-sunken); width: max-content; max-width: 100%; }
+:where(.retro) .r-meter > i { width: 8px; height: 14px; background: transparent; flex: none; }
+:where(.retro) .r-meter > i.r-on { background: var(--retro-meter); }
+:where(.retro) .r-meter.r-bad > i.r-on { background: var(--retro-bad); }
+:where(.retro) .r-meter.r-good > i.r-on { background: var(--retro-good); }
+:where(.retro) .r-meter.r-fill { width: 100%; }
+:where(.retro) .r-meter.r-fill > i { flex: 1; }
+
+/* ---------- numbers and readouts ---------- */
+:where(.retro) .r-num { font-family: var(--retro-font-num); font-size: 1.4em; line-height: 1; font-variant-numeric: tabular-nums; }
+:where(.retro) .r-readout { font: 20px/1 var(--retro-font-num); background: var(--retro-well); padding: 6px 10px; white-space: nowrap; box-shadow: var(--retro-sunken); }
+:where(.retro) .r-lcd { font: 20px/1 var(--retro-font-num); background: #000; color: #39ff6a; padding: 5px 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* ---------- tags and badges ---------- */
+:where(.retro) .r-tag { display: inline-block; font-weight: 700; font-size: 13px; color: #fff; padding: 1px 6px; background: var(--retro-select); }
+:where(.retro) .r-tag.r-good { background: var(--retro-good); }
+:where(.retro) .r-tag.r-bad { background: var(--retro-bad); }
+:where(.retro) .r-tag.r-plain { background: var(--retro-face); color: var(--retro-ink); box-shadow: var(--retro-raised); font-weight: 500; }
+:where(.retro) .r-good-text { color: var(--retro-good); }
+:where(.retro) .r-bad-text { color: var(--retro-bad); }
+
+/* ---------- dialog and backdrop ---------- */
+:where(.retro) .r-dialog { max-width: 520px; width: 100%; align-self: center; }
+:where(.retro) .r-dialog-body { display: flex; gap: 14px; align-items: flex-start; }
+:where(.retro) .r-dialog-body p { margin: 0; font-size: 15px; }
+:where(.retro) .r-dialog-actions { display: flex; justify-content: center; gap: 8px; }
+:where(.retro) .r-dialog-actions .r-btn { min-width: 88px; }
+:where(.retro) .r-backdrop, .r-backdrop:where(.retro) {
+  position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; overflow-y: auto;
+  background-color: rgb(0 0 0 / 0.25);
+  background-image: conic-gradient(rgb(0 0 0 / 0.15) 25%, transparent 0 50%, rgb(0 0 0 / 0.15) 0 75%, transparent 0);
+  background-size: 2px 2px;
+}
+:where(.retro) .r-backdrop .r-dialog { max-height: 100%; overflow-y: auto; }
+:where(.retro) dialog.r-window { border: 0; padding: 3px; color: inherit; }
+:where(.retro) dialog.r-window::backdrop {
+  background-color: rgb(0 0 0 / 0.25);
+  background-image: conic-gradient(rgb(0 0 0 / 0.15) 25%, transparent 0 50%, rgb(0 0 0 / 0.15) 0 75%, transparent 0);
+  background-size: 2px 2px;
+}
+
+/* ---------- balloon (toast, tooltip, callout) ---------- */
+:where(.retro) .r-balloon {
+  position: relative; background: var(--retro-balloon); color: var(--retro-ink); padding: 8px 12px; font-size: 15px; max-width: 320px;
+  box-shadow: inset 1px 1px var(--retro-dark), inset -1px -1px var(--retro-dark); border-radius: 8px;
+}
+:where(.retro) .r-balloon b, :where(.retro) .r-balloon strong { display: flex; align-items: center; gap: 6px; font-weight: 600; }
+:where(.retro) .r-balloon p { margin: 2px 0 0; }
+/* tail points down-right at the tray by default; .r-tail-top flips it */
+:where(.retro) .r-balloon::after {
+  content: ""; position: absolute; right: 24px; bottom: -12px; width: 13px; height: 13px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' shape-rendering='crispEdges'%3E%3Cpath fill='%23ffffe1' d='M0 0h12v1h-1v1h-1v1H9v1H8v1H7v1H6v1H5v1H4v1H3v1H2V1H1V0z'/%3E%3Cpath d='M1 0h1v12H1zM12 0h1v1h-1zM11 1h1v1h-1zM10 2h1v1h-1zM9 3h1v1H9zM8 4h1v1H8zM7 5h1v1H7zM6 6h1v1H6zM5 7h1v1H5zM4 8h1v1H4zM3 9h1v1H3zM2 10h1v2H2z'/%3E%3C/svg%3E") no-repeat;
+}
+:where(.retro) .r-balloon.r-tail-top::after { bottom: auto; top: -12px; transform: scaleY(-1); }
+:where(.retro) .r-balloon.r-no-tail::after { display: none; }
+:where(.retro) .r-balloon .r-tb { position: absolute; top: 6px; right: 6px; width: 16px; height: 14px; font-size: 11px; }
+:where(.retro) .r-tray-balloon { position: fixed; right: 16px; bottom: 16px; z-index: 70; }
+:where(.retro) .r-has-taskbar .r-tray-balloon, .r-has-taskbar:where(.retro) .r-tray-balloon { bottom: 56px; }
+
+/* ---------- lists, explorer pane, tree ---------- */
+:where(.retro) .r-pane { background: var(--retro-well); box-shadow: var(--retro-sunken); padding: 3px; overflow: auto; min-width: 0; }
+:where(.retro) .r-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+:where(.retro) .r-list > li > a:not(.r-btn), :where(.retro) .r-list > li > button:not(.r-btn):not(.r-tb), :where(.retro) .r-list .r-item {
+  display: flex; align-items: center; gap: 6px; width: 100%; padding: 3px 6px; border: 0; background: none;
+  font: 15px var(--retro-font-ui); color: inherit; text-decoration: none; text-align: left; cursor: pointer; white-space: nowrap;
+}
+:where(.retro) .r-list { color: var(--retro-ink); }
+:where(.retro) .r-list [aria-current="page"], :where(.retro) .r-list [aria-selected="true"], :where(.retro) .r-list .r-selected { background: var(--retro-select); color: var(--retro-select-ink); }
+:where(.retro) .r-list a:focus-visible, :where(.retro) .r-list button:focus-visible { outline: 1px dotted var(--retro-ink); outline-offset: -1px; }
+:where(.retro) .r-list [aria-current="page"]:focus-visible, :where(.retro) .r-list .r-selected:focus-visible { outline-color: #fff; }
+:where(.retro) .r-list .r-indent { padding-left: 24px; }
+:where(.retro) .r-split { display: grid; grid-template-columns: minmax(160px, 220px) 1fr; gap: 6px; min-height: 0; }
+@media (max-width: 600px) { :where(.retro) .r-split { grid-template-columns: 1fr; } }
+
+/* ---------- table ---------- */
+:where(.retro) .r-table-wrap { background: var(--retro-well); box-shadow: var(--retro-sunken); padding: 2px; overflow: auto; }
+:where(.retro) .r-table { border-collapse: collapse; width: 100%; font-size: 15px; background: var(--retro-well); }
+:where(.retro) .r-table th {
+  background: var(--retro-face); box-shadow: var(--retro-raised); font-weight: 400; text-align: left; padding: 3px 8px; white-space: nowrap; position: sticky; top: 0;
+}
+:where(.retro) .r-table td { padding: 3px 8px; white-space: nowrap; }
+:where(.retro) .r-table td.r-num-cell, :where(.retro) .r-table th.r-num-cell { text-align: right; font-family: var(--retro-font-num); font-size: 19px; line-height: 1; }
+:where(.retro) .r-table tbody tr:hover td { background: #e8eefb; }
+:where(.retro) .r-table tbody tr[aria-selected="true"] td, :where(.retro) .r-table tbody tr.r-selected td { background: var(--retro-select); color: var(--retro-select-ink); }
+
+/* ---------- status bar ---------- */
+:where(.retro) .r-statusbar { display: flex; gap: 2px; margin-top: 2px; font-size: 14px; }
+:where(.retro) .r-statusbar > * { box-shadow: var(--retro-thin-sunken); padding: 2px 6px; flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+:where(.retro) .r-statusbar > .r-fit { flex: none; }
+
+/* ---------- links, images, avatars ---------- */
+/* links inside running text only, so nav lists and buttons built from <a> stay untouched */
+:where(.retro) .r-link, :where(.retro) p a:not([class]), :where(.retro) li > a:not([class]):not(.r-list a) { color: var(--retro-link); text-decoration: underline; }
+:where(.retro) .r-link:visited, :where(.retro) p a:not([class]):visited { color: #551a8b; }
+:where(.retro) .r-frame { background: var(--retro-well); box-shadow: var(--retro-sunken); padding: 3px; display: inline-block; line-height: 0; }
+:where(.retro) .r-frame img, :where(.retro) .r-frame canvas, :where(.retro) .r-frame video { display: block; max-width: 100%; }
+:where(.retro) .r-avatar { width: 40px; height: 40px; object-fit: cover; image-rendering: pixelated; }
+
+/* ---------- icons ---------- */
+:where(.retro) .r-icon { display: inline-block; flex: none; image-rendering: pixelated; shape-rendering: crispEdges; vertical-align: middle; }
+
+/* ---------- empty state and hero ---------- */
+:where(.retro) .r-hero { display: flex; align-items: center; gap: 16px; padding: 4px; }
+:where(.retro) .r-hero h1 { margin: 0; font: 700 40px/1 var(--retro-font-ui); letter-spacing: 0.01em; color: var(--retro-select); text-shadow: 2px 2px #9fb6ff; }
+:where(.retro) .r-hero p { margin: 6px 0 0; color: var(--retro-muted); max-width: 52ch; }
+:where(.retro) .r-drop { background: var(--retro-well); box-shadow: var(--retro-sunken); padding: 28px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+:where(.retro) .r-drop.r-over { background: #e6f1fb; }
+
+/* ---------- taskbar ---------- */
+:where(.retro) .r-taskbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  height: calc(40px + env(safe-area-inset-bottom, 0px));
+  padding: 0 max(4px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) 0;
+  display: flex; align-items: center; gap: 6px; color: #fff;
+  background: linear-gradient(180deg, var(--retro-task-2) 0%, var(--retro-task-1) 12%, var(--retro-task-1) 88%, #1941a5 100%);
+  border-top: 1px solid #0c3aa5;
+}
+:where(.retro) .r-start {
+  height: 100%; display: flex; align-items: center; gap: 6px; padding: 0 18px 0 10px; border: 0; cursor: pointer;
+  font: italic 700 20px var(--retro-font-ui); color: #fff; text-shadow: 1px 1px #1a4d1a;
+  background: linear-gradient(180deg, var(--retro-start-2) 0%, var(--retro-start-1) 50%, #2f7d2f 100%);
+  border-radius: 0 12px 12px 0;
+}
+:where(.retro) .r-start:hover { filter: brightness(1.1); }
+:where(.retro) .r-tasks { flex: 1; min-width: 0; display: flex; gap: 4px; overflow-x: auto; }
+:where(.retro) .r-task {
+  flex: 0 1 180px; min-width: 0; height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 8px;
+  background: #3c81f3; color: #fff; border: 0; cursor: pointer; font: 14px var(--retro-font-ui); text-decoration: none;
+  box-shadow: inset -1px -1px #0c3aa5, inset 1px 1px #7fb0ff;
+}
+:where(.retro) .r-task span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+:where(.retro) .r-task:hover { background: #5394ff; }
+:where(.retro) .r-task[aria-current="page"], :where(.retro) .r-task.r-active { background: #1e52c4; box-shadow: inset 1px 1px #0c3aa5, inset -1px -1px #7fb0ff; }
+:where(.retro) .r-tray { height: 100%; display: flex; align-items: center; gap: 12px; padding: 0 12px; color: #fff; font-size: 14px; white-space: nowrap; background: #0f9be8; border-left: 1px solid #0c3aa5; }
+:where(.retro) .r-tray time { font: 20px/1 var(--retro-font-num); }
+.retro.r-has-taskbar, :where(.retro) .r-has-taskbar { padding-bottom: 56px; }
+
+/* ---------- scrollbars ---------- */
+.retro, :where(.retro) * { scrollbar-color: var(--retro-face) var(--retro-face-light); }
+:where(.retro) ::-webkit-scrollbar, .retro::-webkit-scrollbar { width: 16px; height: 16px; }
+:where(.retro) ::-webkit-scrollbar-track, .retro::-webkit-scrollbar-track {
+  background-color: var(--retro-face-light);
+  background-image: conic-gradient(var(--retro-face) 25%, var(--retro-hilite) 0 50%, var(--retro-face) 0 75%, var(--retro-hilite) 0);
+  background-size: 2px 2px;
+}
+:where(.retro) ::-webkit-scrollbar-thumb, :where(.retro) ::-webkit-scrollbar-button, .retro::-webkit-scrollbar-thumb, .retro::-webkit-scrollbar-button { background-color: var(--retro-face); box-shadow: var(--retro-raised); }
+:where(.retro) ::-webkit-scrollbar-button, .retro::-webkit-scrollbar-button { width: 16px; height: 16px; background-repeat: no-repeat; background-position: center; }
+:where(.retro) ::-webkit-scrollbar-button:vertical:decrement, .retro::-webkit-scrollbar-button:vertical:decrement { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v1h1v1h1v1h1v1H0V3h1V2h1V1h1z'/%3E%3C/svg%3E"); }
+:where(.retro) ::-webkit-scrollbar-button:vertical:increment, .retro::-webkit-scrollbar-button:vertical:increment { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='4' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1H6v1H5v1H4v1H3V3H2V2H1V1H0z'/%3E%3C/svg%3E"); }
+:where(.retro) ::-webkit-scrollbar-button:horizontal:decrement, .retro::-webkit-scrollbar-button:horizontal:decrement { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v7H3V6H2V5H1V4H0V3h1V2h1V1h1z'/%3E%3C/svg%3E"); }
+:where(.retro) ::-webkit-scrollbar-button:horizontal:increment, .retro::-webkit-scrollbar-button:horizontal:increment { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='7' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h1v1h1v1h1v1h1v1H3v1H2v1H1v1H0z'/%3E%3C/svg%3E"); }
+:where(.retro) ::-webkit-scrollbar-button:vertical:start:increment, :where(.retro) ::-webkit-scrollbar-button:vertical:end:decrement,
+:where(.retro) ::-webkit-scrollbar-button:horizontal:start:increment, :where(.retro) ::-webkit-scrollbar-button:horizontal:end:decrement,
+.retro::-webkit-scrollbar-button:vertical:start:increment, .retro::-webkit-scrollbar-button:vertical:end:decrement,
+.retro::-webkit-scrollbar-button:horizontal:start:increment, .retro::-webkit-scrollbar-button:horizontal:end:decrement { display: none; }
+:where(.retro) ::-webkit-scrollbar-corner, .retro::-webkit-scrollbar-corner { background: var(--retro-face); }
+
+/* ---------- motion ---------- */
+/* Steps, never smooth: things snap open. See SKILL.md "Motion". */
+@keyframes r-open { 0% { clip-path: inset(48% 48% 48% 48%); } 33% { clip-path: inset(32% 32% 32% 32%); } 66% { clip-path: inset(16% 16% 16% 16%); } 100% { clip-path: inset(0); } }
+:where(.retro) .r-opening { animation: r-open 180ms steps(1, end) both; }
+@media (prefers-reduced-motion: reduce) {
+  :where(.retro) .r-progress > i { animation: none; width: 100%; }
+  :where(.retro) .r-opening { animation: none; }
+}
+
+@media (max-width: 560px) {
+  :where(.retro) .r-hero h1 { font-size: 32px; }
+  :where(.retro) .r-tray span { display: none; }
+}

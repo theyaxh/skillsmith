@@ -1,0 +1,29 @@
+# dependencies and build output
+node_modules/
+dist/
+.cache/
+
+# secrets: env files, keys, certificates, tokens
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+.netrc
+credentials*.json
+secrets.*
+
+# scratch renders and test output
+out/
+*.mp4
+*.mov
+
+# logs and editor/OS clutter
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
