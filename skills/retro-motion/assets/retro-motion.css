@@ -1,0 +1,90 @@
+/* retro-motion.css: late-90s desktop motion. Everything snaps or steps. No easing, no fades, no blur.
+   Plain CSS, works alone or beside retro.css. Classes are prefixed rm-. */
+
+:root {
+  --rm-step: 60ms;            /* one "frame" of old-OS motion */
+  --rm-select: #0a246a;
+  --rm-ink: #000;
+  --rm-face: #c0c0c0;
+  --rm-hilite: #fff;
+}
+
+/* ---------- open and close: stepped box zoom from the centre ---------- */
+@keyframes rm-zoom-open {
+  0%   { clip-path: inset(45% 45% 45% 45%); }
+  25%  { clip-path: inset(30% 30% 30% 30%); }
+  50%  { clip-path: inset(15% 15% 15% 15%); }
+  75%  { clip-path: inset(5% 5% 5% 5%); }
+  100% { clip-path: inset(0); }
+}
+.rm-zoom-open { animation: rm-zoom-open calc(var(--rm-step) * 4) steps(1, end) both; }
+.rm-zoom-close { animation: rm-zoom-open calc(var(--rm-step) * 4) steps(1, end) reverse both; }
+
+/* ---------- menus drop down in three steps, top to bottom ---------- */
+@keyframes rm-drop {
+  0%   { clip-path: inset(0 0 66% 0); }
+  33%  { clip-path: inset(0 0 33% 0); }
+  66%, 100% { clip-path: inset(0); }
+}
+.rm-drop { animation: rm-drop calc(var(--rm-step) * 3) steps(1, end) both; }
+@keyframes rm-drop-up { 0% { clip-path: inset(66% 0 0 0); } 33% { clip-path: inset(33% 0 0 0); } 66%, 100% { clip-path: inset(0); } }
+.rm-drop-up { animation: rm-drop-up calc(var(--rm-step) * 3) steps(1, end) both; }
+
+/* ---------- title bar flashes for attention (inactive / active), 3 times ---------- */
+@keyframes rm-flash { 0%, 100% { filter: none; } 50% { filter: grayscale(1) brightness(1.4); } }
+.rm-flash { animation: rm-flash calc(var(--rm-step) * 8) steps(1, end) 3; }
+
+/* ---------- progress crawl: blocks march across a sunken track ---------- */
+.rm-crawl { height: 18px; padding: 2px; background: #fff; overflow: hidden; box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
+.rm-crawl > i { display: block; height: 100%; width: 40%; background: repeating-linear-gradient(90deg, #000080 0 10px, transparent 10px 12px); animation: rm-crawl 1.2s steps(8) infinite; }
+@keyframes rm-crawl { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+
+/* ---------- determinate progress that fills in whole blocks ---------- */
+/* set --rm-pct on the element (0 to 100); width snaps to 5% blocks */
+.rm-blocks { height: 18px; padding: 2px; background: #fff; box-shadow: inset 1px 1px #808080, inset -1px -1px #fff; }
+.rm-blocks > i { display: block; height: 100%; width: calc(round(down, var(--rm-pct, 0) * 1%, 5%)); background: repeating-linear-gradient(90deg, #000080 0 10px, transparent 10px 12px); }
+
+/* ---------- marching ants: dotted selection rectangle that crawls ---------- */
+.rm-ants {
+  --rm-ant: var(--rm-ink);
+  background:
+    linear-gradient(90deg, var(--rm-ant) 50%, transparent 0) repeat-x 0 0 / 4px 1px,
+    linear-gradient(90deg, var(--rm-ant) 50%, transparent 0) repeat-x 0 100% / 4px 1px,
+    linear-gradient(0deg, var(--rm-ant) 50%, transparent 0) repeat-y 0 0 / 1px 4px,
+    linear-gradient(0deg, var(--rm-ant) 50%, transparent 0) repeat-y 100% 0 / 1px 4px;
+  animation: rm-ants 480ms steps(4) infinite;
+}
+@keyframes rm-ants { to { background-position: 4px 0, -4px 100%, 0 -4px, 100% 4px; } }
+
+/* ---------- blinking block caret ---------- */
+.rm-caret::after { content: ""; display: inline-block; width: 0.55em; height: 1em; margin-left: 1px; background: currentColor; vertical-align: -0.12em; animation: rm-blink 1.06s steps(1, end) infinite; }
+@keyframes rm-blink { 50% { visibility: hidden; } }
+
+/* ---------- typewriter: reveal text in character steps. Set --rm-chars to the length. ---------- */
+.rm-type { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; animation: rm-type calc(var(--rm-chars, 20) * 45ms) steps(var(--rm-chars, 20), end) forwards; font-variant-ligatures: none; }
+@keyframes rm-type { to { width: calc(var(--rm-chars, 20) * 1ch); } }
+
+/* ---------- desktop icon: label selects navy, icon gets a dither ---------- */
+.rm-desk-icon { font: inherit; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; width: 76px; padding: 2px; color: #fff; text-align: center; font-size: 14px; border: 0; background: none; cursor: default; }
+.rm-desk-icon img, .rm-desk-icon svg { width: 32px; height: 32px; image-rendering: pixelated; }
+.rm-desk-icon span { padding: 0 2px; text-shadow: 1px 1px #000; }
+.rm-desk-icon:focus, .rm-desk-icon.rm-selected { outline: none; }
+.rm-desk-icon:focus span, .rm-desk-icon.rm-selected span { background: var(--rm-select); text-shadow: none; outline: 1px dotted #fff; }
+.rm-desk-icon:focus img, .rm-desk-icon.rm-selected img { filter: brightness(0.6) sepia(1) hue-rotate(190deg) saturate(4); }
+
+/* ---------- cursors (32px images drawn on a 16px grid) ---------- */
+/* paths are relative to this file; copy the cursors folder next to it */
+.rm-cursor-arrow, .rm-cursor-arrow * { cursor: url("cursors/arrow.svg") 0 0, default; }
+.rm-cursor-busy, .rm-cursor-busy * { cursor: url("cursors/hourglass.svg") 16 16, wait !important; }
+.rm-cursor-hand, .rm-cursor-hand * { cursor: url("cursors/hand.svg") 10 0, pointer; }
+
+/* ---------- drag outline (used by retro-motion.js) ---------- */
+.rm-outline { position: fixed; z-index: 9999; pointer-events: none; box-sizing: border-box; border: 2px dotted #fff; mix-blend-mode: difference; } /* XOR-style: shows on any background */
+
+/* ---------- reduced motion: cut straight to the end state ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .rm-zoom-open, .rm-zoom-close, .rm-drop, .rm-drop-up, .rm-flash, .rm-ants { animation: none; }
+  .rm-crawl > i { animation: none; width: 100%; }
+  .rm-type { animation: none; width: auto; }
+  .rm-caret::after { animation: none; }
+}

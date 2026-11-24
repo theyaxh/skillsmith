@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retro motion</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=VT323&display=swap">
+<link rel="stylesheet" href="retro-motion.css">
+<style>
+  body { margin: 0; min-height: 100vh; background: #2672dc; font: 15px "Pixelify Sans", sans-serif; font-feature-settings: "liga" 0; -webkit-font-smoothing: none; }
+  .desk { display: flex; flex-direction: column; gap: 8px; padding: 16px; width: max-content; }
+  .win { position: absolute; left: 140px; top: 24px; width: 420px; background: #c0c0c0; padding: 3px;
+    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf; }
+  .bar { display: flex; justify-content: space-between; align-items: center; padding: 3px 3px 3px 6px; color: #fff; font-weight: 600;
+    background: linear-gradient(180deg, #0058ee 0%, #3a93ff 10%, #127dff 50%, #0050de 100%); border-radius: 6px 6px 0 0; cursor: move; user-select: none; }
+  .body { padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+  button.b { font: 15px "Pixelify Sans", sans-serif; background: #c0c0c0; border: 0; padding: 6px 12px; cursor: pointer;
+    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf; }
+  button.b:active { box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px #808080; padding: 7px 11px 5px 13px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .menu { position: absolute; background: #c0c0c0; padding: 3px; width: 160px; box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf; }
+  .menu div { padding: 4px 20px; } .menu div:hover { background: #0a246a; color: #fff; }
+  .ants { width: 120px; height: 48px; }
+  .term { background: #000; color: #39ff6a; font: 20px/1.2 "VT323", monospace; padding: 8px; }
+  .task { position: fixed; left: 0; right: 0; bottom: 0; height: 36px; background: #245edb; display: flex; align-items: center; padding: 0 6px; gap: 6px; }
+  .task button { height: 28px; font: 14px "Pixelify Sans"; color: #fff; background: #3c81f3; border: 0; padding: 0 12px; box-shadow: inset -1px -1px #0c3aa5, inset 1px 1px #7fb0ff; }
+</style>
+</head>
+<body class="rm-cursor-arrow">
+<div class="desk">
+  <button class="rm-desk-icon" id="icon"><img src="cursors/hourglass.svg" alt=""><span>Motion.exe</span></button>
+</div>
+
+<section class="win" id="win">
+  <div class="bar" id="bar">Retro motion <span>×</span></div>
+  <div class="body">
+    <div class="row">
+      <button class="b" id="close">Close to taskbar</button>
+      <button class="b" id="busy">Busy 2s</button>
+      <button class="b" id="flash">Flash</button>
+      <span style="position:relative"><button class="b" id="mb">Menu ▾</button></span>
+    </div>
+    <div class="rm-crawl"><i></i></div>
+    <div class="rm-blocks" style="--rm-pct: 62"><i></i></div>
+    <div class="row"><div class="ants rm-ants"></div><span>Drag the title bar: the window follows as an outline.</span></div>
+    <div class="term"><span class="rm-type" style="--rm-chars: 24">C:\&gt; loading fun.exe...</span><span class="rm-caret"></span></div>
+  </div>
+</section>
+
+<footer class="task"><button id="taskbtn">Retro motion</button></footer>
+
+<script type="module">
+  import { zoomOpen, zoomClose, dragOutline } from "./retro-motion.js";
+  const win = document.getElementById("win"), task = document.getElementById("taskbtn");
+  dragOutline(document.getElementById("bar"), win);
+  document.getElementById("close").onclick = () => zoomClose(win, { to: task });
+  task.onclick = () => (win.hidden ? zoomOpen(win, { from: task }) : zoomClose(win, { to: task }));
+  document.getElementById("icon").ondblclick = () => win.hidden && zoomOpen(win, { from: document.getElementById("icon") });
+  document.getElementById("busy").onclick = () => { document.body.classList.add("rm-cursor-busy"); setTimeout(() => document.body.classList.remove("rm-cursor-busy"), 2000); };
+  document.getElementById("flash").onclick = () => { const b = document.getElementById("bar"); b.classList.remove("rm-flash"); void b.offsetWidth; b.classList.add("rm-flash"); };
+  document.getElementById("mb").onclick = (e) => {
+    const old = document.querySelector(".menu"); if (old) return old.remove();
+    const m = document.createElement("div"); m.className = "menu rm-drop"; m.style.top = "calc(100% + 2px)"; m.style.left = "0";
+    m.innerHTML = "<div>New</div><div>Open...</div><div>Save</div><div>Exit</div>"; e.currentTarget.parentElement.appendChild(m);
+  };
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>retro.css parts</title>
+<link rel="stylesheet" href="retro.css">
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; padding: 20px; align-items: start; }
+</style>
+</head>
+<!-- Every part in retro.css with its markup. Copy from here. -->
+<body class="retro r-has-taskbar">
+<div class="grid">
+
+  <!-- window: title bar, menu bar, body, status bar -->
+  <section class="r-window">
+    <div class="r-title">
+      <h2 class="r-title-text"><img class="r-icon" src="icons/app.svg" width="16" height="16" alt="">Window</h2>
+      <span class="r-title-buttons">
+        <span class="r-tb" aria-hidden="true">_</span><span class="r-tb" aria-hidden="true">□</span>
+        <button type="button" class="r-tb r-close" aria-label="Close">×</button>
+      </span>
+    </div>
+    <nav class="r-menubar">
+      <div class="r-menu-wrap"><button class="r-menu-title" aria-expanded="false">File</button></div>
+      <div class="r-menu-wrap"><button class="r-menu-title">Edit</button></div>
+      <div class="r-menu-wrap"><button class="r-menu-title">Help</button></div>
+    </nav>
+    <div class="r-body">
+      <div class="r-toolbar">
+        <button class="r-btn r-default">Save</button>
+        <button class="r-btn">Cancel</button>
+        <button class="r-btn r-pressed">Pressed</button>
+        <button class="r-btn" disabled>Disabled</button>
+        <button class="r-btn r-square" aria-label="Settings"><img class="r-icon" src="icons/gear.svg" width="16" height="16" alt=""></button>
+      </div>
+      <p>Body text sits on the grey face. Links in text look like <a href="#">this</a>.</p>
+    </div>
+    <div class="r-statusbar"><span>Ready</span><span class="r-fit">3 items</span><span class="r-fit r-num">12:04</span></div>
+  </section>
+
+  <!-- form controls -->
+  <section class="r-window">
+    <div class="r-title"><h2 class="r-title-text">Form</h2></div>
+    <div class="r-body">
+      <label class="r-field"><span class="r-label">Name</span><input class="r-input" value="Ada"></label>
+      <label class="r-field"><span class="r-label">Plan</span><select class="r-select"><option>Team</option><option>Solo</option></select></label>
+      <label class="r-field"><span class="r-label">Note</span><textarea class="r-textarea" placeholder="Write something"></textarea></label>
+      <fieldset class="r-group"><legend>Options</legend>
+        <label class="r-check"><input type="checkbox" checked><span>Checked</span></label>
+        <label class="r-check"><input type="checkbox"><span>Unchecked</span></label>
+        <label class="r-radio"><input type="radio" name="d" checked><span>Radio on</span></label>
+        <label class="r-radio"><input type="radio" name="d"><span>Radio off</span></label>
+      </fieldset>
+      <label class="r-field"><span class="r-label">Volume</span><input class="r-slider" type="range" value="40"></label>
+    </div>
+  </section>
+
+  <!-- tabs, progress, meters, readouts -->
+  <section class="r-window">
+    <div class="r-title"><h2 class="r-title-text">Tabs and meters</h2></div>
+    <div class="r-body">
+      <div>
+        <div class="r-tabs" role="tablist">
+          <button class="r-tab" role="tab" aria-selected="true">General</button>
+          <button class="r-tab" role="tab" aria-selected="false">Advanced</button>
+        </div>
+        <div class="r-tabpanel" role="tabpanel">
+          <span class="r-progress"><i></i></span>
+          <span class="r-progress r-determinate"><i style="width:42%"></i></span>
+          <div class="r-meter"><i class="r-on"></i><i class="r-on"></i><i class="r-on"></i><i class="r-on"></i><i class="r-on"></i><i></i><i></i><i></i></div>
+          <div class="r-meter r-bad"><i class="r-on"></i><i class="r-on"></i><i class="r-on"></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="r-toolbar"><span class="r-readout">64 GB</span><span class="r-lcd">00:12:07</span><span class="r-num">1,240</span></div>
+          <div class="r-toolbar"><span class="r-tag">New</span><span class="r-tag r-good">Done</span><span class="r-tag r-bad">Failed</span><span class="r-tag r-plain">Draft</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- explorer pane and table -->
+  <section class="r-window" style="grid-column: span 2">
+    <div class="r-title"><h2 class="r-title-text"><img class="r-icon" src="icons/folder.svg" width="16" height="16" alt="">Explorer</h2></div>
+    <div class="r-body">
+      <div class="r-split">
+        <ul class="r-list r-pane">
+          <li><a href="#" aria-current="page"><img class="r-icon" src="icons/home.svg" width="16" height="16" alt="">Home</a></li>
+          <li><a href="#"><img class="r-icon" src="icons/folder.svg" width="16" height="16" alt="">Projects</a></li>
+          <li><a href="#" class="r-indent"><img class="r-icon" src="icons/file.svg" width="16" height="16" alt="">brief.txt</a></li>
+          <li><a href="#"><img class="r-icon" src="icons/trash.svg" width="16" height="16" alt="">Trash</a></li>
+        </ul>
+        <div class="r-table-wrap">
+          <table class="r-table">
+            <thead><tr><th>Name</th><th class="r-num-cell">Size</th></tr></thead>
+            <tbody>
+              <tr><td>brief.txt</td><td class="r-num-cell">4 KB</td></tr>
+              <tr class="r-selected"><td>logo.png</td><td class="r-num-cell">88 KB</td></tr>
+              <tr><td>notes.md</td><td class="r-num-cell">2 KB</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- dialog with a menu open beside it -->
+  <section class="r-window r-dialog" role="dialog" aria-label="Delete file">
+    <div class="r-title"><h2 class="r-title-text">Delete file</h2><span class="r-title-buttons"><button class="r-tb r-close" aria-label="Close">×</button></span></div>
+    <div class="r-body">
+      <div class="r-dialog-body"><img class="r-icon" src="icons/warning.svg" width="32" height="32" alt=""><p>Move "brief.txt" to the Trash?</p></div>
+      <div class="r-dialog-actions"><button class="r-btn r-default">Yes</button><button class="r-btn">No</button></div>
+    </div>
+  </section>
+
+  <div style="position:relative;min-height:200px">
+    <div class="r-menu-wrap">
+      <button class="r-btn" aria-expanded="true">Export <span class="r-caret" aria-hidden="true">▾</span></button>
+      <div class="r-menu" role="menu">
+        <button role="menuitem">PNG image <span class="r-shortcut">Ctrl+E</span></button>
+        <button role="menuitem">SVG file</button>
+        <button role="menuitem" disabled>PDF document</button>
+        <hr>
+        <button role="menuitem">Copy link</button>
+      </div>
+    </div>
+    <div class="r-balloon r-tail-top" role="status" style="position:absolute;left:240px;top:40px;width:260px"><b><img class="r-icon" src="icons/info.svg" width="16" height="16" alt="">Balloon</b><p>Toasts and tooltips become this.</p></div>
+  </div>
+</div>
+
+<footer class="r-taskbar">
+  <button type="button" class="r-start"><img class="r-icon" src="icons/app.svg" width="16" height="16" alt=""><span>start</span></button>
+  <div class="r-tasks">
+    <button class="r-task r-active"><img class="r-icon" src="icons/app.svg" width="16" height="16" alt=""><span>Window</span></button>
+    <button class="r-task"><img class="r-icon" src="icons/folder.svg" width="16" height="16" alt=""><span>Explorer</span></button>
+  </div>
+  <div class="r-tray"><span>2 files</span><time>12:04</time></div>
+</footer>
+</body>
+</html>
