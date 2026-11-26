@@ -1,9 +1,0 @@
-#!/bin/sh
-# Rejects commit messages that don't start with a conventional type.
-# Turn on once per clone: git config core.hooksPath .githooks
-first=$(head -n1 "$1")
-if ! printf '%s' "$first" | grep -Eq '^(feat|fix|hotfix|docs|style|refactor|perf|test|chore|ci|build|revert)(\([a-z0-9-]+\))?!?: .+'; then
-  echo "Commit message must start with a type, e.g. 'feat: add retro-sound' or 'fix(retro-motion): menu stacking'."
-  echo "Types: feat fix hotfix docs style refactor perf test chore ci build revert"
-  exit 1
-fi
