@@ -1,6 +1,6 @@
 ---
 name: retro-review
-description: Reviews a retro late-90s desktop UI (bevelled grey windows, blue title bars, pixel fonts and icons) and reports every detail that breaks the look, with file and line, why it breaks, and the fix. Use it whenever someone asks to "review", "check", "audit", "polish" or "make more authentic" a Windows 98 / XP / Win95 / retro desktop / pixel OS / 98.css-style interface, asks "why does this not look retro enough", or has just finished a retro conversion and wants a second pass, even if they don't say "review".
+description: Reviews a retro late-90s desktop UI (bevelled grey windows, blue title bars, pixel fonts and icons) and reports every detail that breaks the look, with file and line, why it breaks, and the fix. Use it whenever someone asks to "review", "check", "audit", "polish" or "make more authentic" a retro desktop / pixel OS / 90s-computer-style interface, asks "why does this not look retro enough", or has just finished a retro conversion and wants a second pass, even if they don't say "review".
 ---
 
 # Retro Review
@@ -11,7 +11,7 @@ Made for fun builds: side projects, portfolios, games, jams, toys. Judge them by
 
 ## Procedure
 
-1. **Lint the code.** Run `node scripts/lint.mjs <src folder or files>`. It flags rounded corners, soft shadows, blur, smooth easing, hover lifts, faded disabled states, removed focus, glow rings, ligatures, tracking, gradients, icon sizes, line icons and Microsoft branding. Each hit is a lead: open it and decide. Title-bar top corners, radios and the taskbar's start button are allowed to be round. Gradients are allowed on title bars and the taskbar.
+1. **Lint the code.** Run `node scripts/lint.mjs <src folder or files>`. It flags rounded corners, soft shadows, blur, smooth easing, hover lifts, faded disabled states, removed focus, glow rings, ligatures, tracking, gradients, icon sizes, line icons and real-company branding. Each hit is a lead: open it and decide. Title-bar top corners, radios and the taskbar's start button are allowed to be round. Gradients are allowed on title bars and the taskbar.
 2. **Look at it.** Screenshot the UI (run it, or headless Chrome on the page) at normal size and zoomed to 200%. Bevel and icon mistakes only show up zoomed.
 3. **Walk the checklist** in `references/checklist.md`, top to bottom, against the screenshot and the code. It has what to look for and the fix for each.
 4. **Report** in this shape, most visible problems first:

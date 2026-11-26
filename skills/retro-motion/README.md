@@ -6,7 +6,7 @@ Late-90s desktop motion for the web. Windows zoom open with dotted rectangles, d
 npx skills add theyaxh/skillsmith --skill retro-motion
 ```
 
-Then ask *"make my windows open like Windows 98"*, *"add a fake boot sequence"* or *"retro cursors and loading bars"*.
+Then ask *"make my windows open like an old computer"*, *"add a fake boot sequence"* or *"retro cursors and loading bars"*.
 
 ## What it's for
 
@@ -22,4 +22,4 @@ Fun builds: desktop-style portfolios, games, jam entries, toys, joke sites. The 
 | `assets/cursors/` | Arrow, hourglass and hand, original pixel art |
 | `assets/demo.html` | Everything wired up (serve the folder; ES modules don't load over `file://`) |
 
-Respects `prefers-reduced-motion`. No Microsoft sounds, boot screens or cursor files.
+Respects `prefers-reduced-motion`. No real OS sounds, boot screens or cursor files.

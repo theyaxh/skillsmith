@@ -1,6 +1,6 @@
 ---
 name: retro-convert
-description: Converts any existing UI (React, Vue, Svelte, Angular, plain HTML, Tailwind, CSS modules) into a retro late-90s desktop look, with grey bevelled windows, blue gradient title bars, pixel fonts, crisp pixel icons, sunken fields, blocky progress meters and a taskbar. It keeps every word, control and behaviour and swaps only the skin. Use it whenever someone asks to make an app, page, component or screen "look like Windows 98", "Windows XP", "Win95", "old PC", "retro desktop", "pixel OS", "vaporwave OS", "Y2K computer", "classic desktop UI", "bevelled 90s buttons", or "like 98.css / XP.css", or wants a nostalgic or retro computer skin on an existing interface, even if they never say "convert".
+description: Converts any existing UI (React, Vue, Svelte, Angular, plain HTML, Tailwind, CSS modules) into a retro late-90s desktop look, with grey bevelled windows, blue gradient title bars, pixel fonts, crisp pixel icons, sunken fields, blocky progress meters and a taskbar. It keeps every word, control and behaviour and swaps only the skin. Use it whenever someone asks to make an app, page, component or screen "look like an old 90s computer", "old PC", "retro desktop", "pixel OS", "vaporwave OS", "Y2K computer", "classic desktop UI", "bevelled 90s buttons", or wants a nostalgic or retro computer skin on an existing interface, even if they never say "convert".
 ---
 
 # Retro Convert
@@ -85,4 +85,4 @@ Retro UI snaps. No easing, springs, fades or blur. If the original animates, kee
 
 ## Naming and assets
 
-Never put Microsoft names, logos, the Windows flag, Bliss wallpaper, Tahoma-as-brand or MS Sans Serif files into a product. The kit's fonts (Pixelify Sans, VT323) are open Google Fonts and its icons are original. Say "retro desktop" in UI copy, not "Windows".
+Never use another company's names, logos, wallpapers, system fonts or sounds in a product. The kit's fonts (Pixelify Sans, VT323) are open Google Fonts and its icons are original. In UI copy, say "retro desktop", never a real operating system's name.

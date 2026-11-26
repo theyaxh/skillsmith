@@ -59,4 +59,4 @@ Go top to bottom. Each item: what to look for, then the fix.
 - **Fixed taskbar covering content.** Fix: bottom padding equal to the taskbar height.
 
 ## Branding
-- **Microsoft names or assets.** "Windows", the four-colour flag, Bliss, MS fonts bundled, system sounds. Fix: original names, icons and wallpaper. "start" is a fine generic label.
+- **Real company names or assets.** An operating system's name, logo, wallpaper, bundled fonts or system sounds. Fix: original names, icons and wallpaper. "start" is a fine generic label.

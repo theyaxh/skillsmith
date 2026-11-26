@@ -6,7 +6,7 @@ Turns any UI into a late-90s desktop: grey bevelled windows, blue gradient title
 npx skills add theyaxh/skillsmith --skill retro-convert
 ```
 
-Then ask your agent something like *"make this page look like Windows 98"* or *"give my portfolio a retro desktop skin"*.
+Then ask your agent something like *"make this page look like an old 90s computer"* or *"give my portfolio a retro desktop skin"*.
 
 ## What it's for
 
@@ -37,4 +37,4 @@ Fun stuff: portfolios, side projects, games, jam entries, April Fools skins, toy
 - `retro-icons`: when you need an icon the kit doesn't have.
 - `retro-motion`: stepped window zooms, outline drags, hourglass cursors.
 
-Fonts are Pixelify Sans and VT323 (open Google Fonts). Icons are original. No Microsoft assets.
+Fonts are Pixelify Sans and VT323 (open Google Fonts). Icons are original. No assets from any real company.

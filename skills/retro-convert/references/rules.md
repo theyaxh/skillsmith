@@ -153,6 +153,6 @@ No easing curves, springs, fades, blur or scale-on-hover. Use `steps()`.
 
 Buttons don't change colour on hover. Menus and list rows highlight navy. Taskbar buttons brighten slightly. Nothing lifts, grows or glows.
 
-## 13. No Microsoft branding
+## 13. No real-company branding
 
-Never use the Windows logo, the word "Windows" in product UI, Bliss or other Microsoft wallpapers, MS fonts as bundled files, or system sounds. The kit is original: keep it that way. "start" on the taskbar is fine as a generic label, or use the product name.
+Never use a real operating system\'s logo or name in product UI, its wallpapers, its bundled fonts or its system sounds. The kit is original: keep it that way. "start" on the taskbar is fine as a generic label, or use the product name.

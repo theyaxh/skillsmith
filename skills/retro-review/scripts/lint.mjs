@@ -28,7 +28,7 @@ const RULES = [
   ["gradient", /bg-gradient-|from-\w+-\d+\s+to-/, "gradient fill (allowed only on title bars and the taskbar)"],
   ["icon-size", /class(Name)?=["'][^"']*\br-icon\b[^"']*["'][^>]*\b(width|height)=["']?(?!16\b|32\b|48\b)\d+/, "pixel icon not at 16, 32 or 48px"],
   ["line-icon", /stroke-width=["']?(1\.5|2)|strokeWidth=\{?["']?(1\.5|2)|lucide-react|@heroicons|react-icons/, "modern line icon; use 16px pixel icons"],
-  ["branding", /\b(Windows\s*(95|98|XP|ME|2000)?|Microsoft|Bliss|MS Sans Serif)\b/, "Microsoft name or asset in product copy"],
+  ["branding", /\b(Windows\s*(95|98|XP|ME|2000)?|Microsoft|Bliss|MS Sans Serif)\b/, "real company or OS name in product copy"],
 ];
 
 const files = [];
