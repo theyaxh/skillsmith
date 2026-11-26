@@ -1,6 +1,6 @@
 ---
 name: retro-icons
-description: Draws original 16x16 pixel-art icons in a late-90s desktop style (hard 1px black outlines, flat fills, crisp at any whole-number scale) and exports them as SVG files, a sprite, or React components. Ships 26 ready icons (folder, file, save, trash, gear, search, user, bell, mail, home, chart, warning, error, info, help, check, upload, download, heart, star, note, computer, lock, smiley and more). Use it whenever someone wants pixel icons, 8-bit or 16-bit icons, retro / Windows 98 / XP / old-OS style icons, desktop icons for a fun site or game, a favicon in pixel art, or needs an icon the retro kit doesn't have, even if they just say "make me a little icon for X".
+description: Draws original 16x16 pixel-art icons in a late-90s desktop style (hard 1px black outlines, flat fills, crisp at any whole-number scale) and exports them as SVG files, a sprite, or React components. Ships 26 ready icons (folder, file, save, trash, gear, search, user, bell, mail, home, chart, warning, error, info, help, check, upload, download, heart, star, note, computer, lock, smiley and more). Use it whenever someone wants pixel icons, 8-bit or 16-bit icons, retro / old-OS style icons, desktop icons for a fun site or game, a favicon in pixel art, or needs an icon the retro kit doesn't have, even if they just say "make me a little icon for X".
 ---
 
 # Retro Icons
@@ -62,4 +62,4 @@ Export the 16px SVG and use it directly: `<link rel="icon" href="/icons/app.svg"
 
 ## Don't
 
-Draw Microsoft logos, the four-colour flag, or copies of real OS icons. Draw your own: the style is generic, the art must be original.
+Draw any real company's logos or copies of real OS icons. Draw your own: the style is generic, the art must be original.

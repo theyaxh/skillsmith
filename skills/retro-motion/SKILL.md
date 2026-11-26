@@ -1,6 +1,6 @@
 ---
 name: retro-motion
-description: Adds late-90s desktop motion to a web UI. Windows open and close with stepped dotted zoom rectangles, windows drag as outlines, menus drop in steps, progress crawls in blocks, carets blink, text types out, plus hourglass and arrow pixel cursors and marching-ants selection. Everything snaps or steps and nothing eases or fades. Use it whenever someone wants Windows 98 / XP / retro OS animations, "make it move like an old computer", window open/minimize effects, a fake boot or loading sequence, pixel cursors, or a retro desktop site or game that should feel alive, even if they just say "add some retro animation".
+description: Adds late-90s desktop motion to a web UI. Windows open and close with stepped dotted zoom rectangles, windows drag as outlines, menus drop in steps, progress crawls in blocks, carets blink, text types out, plus hourglass and arrow pixel cursors and marching-ants selection. Everything snaps or steps and nothing eases or fades. Use it whenever someone wants retro OS animations, "make it move like an old computer", window open/minimize effects, a fake boot or loading sequence, pixel cursors, or a retro desktop site or game that should feel alive, even if they just say "add some retro animation".
 ---
 
 # Retro Motion
@@ -50,4 +50,4 @@ Made for fun builds: side projects, portfolios, games, jams, toys, desktop-style
 
 ## Don't
 
-Use Microsoft's real startup sound, boot screens, logos or cursor files. The cursors and effects here are original; keep it that way.
+Use any real operating system's startup sounds, boot screens, logos or cursor files. The cursors and effects here are original; keep it that way.
