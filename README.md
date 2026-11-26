@@ -16,7 +16,7 @@ Pick the skills you want from the list, or install one:
 npx skills add theyaxh/skillsmith --skill retro-convert
 ```
 
-Works with Claude Code, Cursor, Codex and the other agents the `skills` CLI supports. In Claude Code the skills also load as a plugin, named `skillsmith:<skill>`.
+Works with Claude Code, Cursor, Codex and the other agents the `skills` CLI supports.
 
 ## Skills
 
