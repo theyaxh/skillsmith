@@ -4,6 +4,8 @@ Skills for designers and engineers, forged by hand.
 
 Each skill teaches your coding agent one craft properly, so it stops guessing.
 
+Browse every skill, with screenshots and example prompts, at **[skillsmith.yashf.in](https://skillsmith.yashf.in)**.
+
 ## Install
 
 ```bash
